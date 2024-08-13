@@ -31,12 +31,13 @@ pub struct Logprobs {
     pub text_offset: Vec<u32>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CompletionFinishReason {
     Stop,
     Length,
     ContentFilter,
+    Other(String)
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
@@ -44,7 +45,7 @@ pub struct Choice {
     pub text: String,
     pub index: u32,
     pub logprobs: Option<Logprobs>,
-    pub finish_reason: Option<CompletionFinishReason>,
+    pub finish_reason: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
@@ -565,7 +566,7 @@ pub struct ChatChoice {
     /// `length` if the maximum number of tokens specified in the request was reached,
     /// `content_filter` if content was omitted due to a flag from our content filters,
     /// `tool_calls` if the model called a tool, or `function_call` (deprecated) if the model called a function.
-    pub finish_reason: Option<FinishReason>,
+    pub finish_reason: Option<CompletionFinishReason>,
     /// Log probability information for the choice.
     pub logprobs: Option<ChatChoiceLogprobs>,
 }
@@ -635,7 +636,7 @@ pub struct ChatChoiceStream {
     /// The index of the choice in the list of choices.
     pub index: u32,
     pub delta: ChatCompletionStreamResponseDelta,
-    pub finish_reason: Option<FinishReason>,
+    pub finish_reason: Option<String>,
     /// Log probability information for the choice.
     pub logprobs: Option<ChatChoiceLogprobs>,
 }
