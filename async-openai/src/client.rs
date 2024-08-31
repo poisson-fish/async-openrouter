@@ -239,7 +239,6 @@ impl<C: Config> Client<C> {
                 .json(&request)
                 .build()?)
         };
-
         self.execute(request_maker).await
     }
 

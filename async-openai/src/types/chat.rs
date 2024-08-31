@@ -566,7 +566,7 @@ pub struct ChatChoice {
     /// `length` if the maximum number of tokens specified in the request was reached,
     /// `content_filter` if content was omitted due to a flag from our content filters,
     /// `tool_calls` if the model called a tool, or `function_call` (deprecated) if the model called a function.
-    pub finish_reason: Option<CompletionFinishReason>,
+    pub finish_reason: Option<String>,
     /// Log probability information for the choice.
     pub logprobs: Option<ChatChoiceLogprobs>,
 }
